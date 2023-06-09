@@ -7,6 +7,12 @@ const getAll = async(req, res, next) =>{
 		.catch(err => next(err))
 }
 
+const getbyID = async(req, res, next) =>{
+	return taskServices.getbyID(req.params.id)
+		.then(result => res.status(result.status).send(result))
+		.catch(err => next(err))
+}
+
 const createTask = async(req,res, next) =>{
 	return taskServices.create(req)
 		.then(result => res.status(result.status).send(result))
@@ -29,5 +35,6 @@ module.exports = {
     getAll,
 	createTask,
 	updateTask,
-	deleteTask
+	deleteTask,
+	getbyID
 }

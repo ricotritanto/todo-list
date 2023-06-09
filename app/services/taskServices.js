@@ -18,6 +18,16 @@ const getAll = async(data) =>{
 	}
 }
 
+const getbyID = async(req)=>{
+	const task = await taskRepo.getbyID(req)
+	const result = {
+		items: task
+	}
+	return {
+		status:200,
+		result
+	}
+}
 const create = async(req)=>{
 	await check('name', 'name is required').notEmpty().run(req)
 	const result = validationResult(req)
@@ -94,6 +104,7 @@ const deleteData = async(req) =>{
 			message: 'success updating data'
 		}
 	} catch (error) {
+		console.log(error)
 		return {
 			status: 500,
 			message: 'something went wrong'
@@ -105,5 +116,6 @@ module.exports={
     getAll,
     create,
 	update,
-	deleteData
+	deleteData,
+	getbyID
 }

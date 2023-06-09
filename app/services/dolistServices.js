@@ -20,20 +20,23 @@ const getAll = async(data) =>{
 }
 
 const create = async(req)=>{
-	await check('task_id', 'task is required').notEmpty().run(req)
+	// console.log(req.body)
+	await check('task', 'task is required').notEmpty().run(req)
 	await check('name', 'name is required').notEmpty().run(req)
 	await check('status', 'status is required').notEmpty().run(req)
-	await check('due_date', 'due_date is required').notEmpty().run(req)
+	await check('dueDate', 'dueDate is required').notEmpty().run(req)
 	const result = validationResult(req)
+	console.log(result)
 	if (!result.isEmpty()) {
 		return {
 			status:422,
-			message:'dolist name is required'
+			message:result.errors.map((error) => error.msg)
 		}
 	}
-
 	const checkIsExistCode = await dolistRepo.findOne(req)
 	const checkTask = await taskRepo.findById(req)
+
+	console.log(checkTask)
 	if(!checkTask)
 		return{
 			status:404,
@@ -45,12 +48,13 @@ const create = async(req)=>{
 			message: req.body.name+' is already'
 		}
 	try {
-		await dolistRepo.createTask(req)
+		await dolistRepo.createDolist(req)
 		return {
 			status:201,
 			message: 'success created data'
 		}
 	} catch (error) {
+		console.log(error)
 		return {
 			status: 500,
 			message: 'something went wrong'
@@ -59,10 +63,10 @@ const create = async(req)=>{
 }
 
 const update = async(req)=>{
-	await check('task_id', 'task is required').notEmpty().run(req)
+	await check('task', 'task is required').notEmpty().run(req)
 	await check('name', 'name is required').notEmpty().run(req)
 	await check('status', 'status is required').notEmpty().run(req)
-	await check('due_date', 'due_date is required').notEmpty().run(req)
+	await check('dueDate', 'duedate is required').notEmpty().run(req)
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		return {

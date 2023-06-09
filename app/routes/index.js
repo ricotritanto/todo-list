@@ -22,6 +22,7 @@ module.exports = app =>{
 
     //api task
     app.get('/api/task',taskController.getAll)
+    app.get('/api/task/:id',taskController.getbyID)
 	app.post('/api/task',taskController.createTask)
 	app.put('/api/task/:id',taskController.updateTask)	
 	app.delete('/api/task/:id',taskController.deleteTask)

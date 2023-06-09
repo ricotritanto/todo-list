@@ -57,10 +57,20 @@ const find = async(req) =>{
 		}
 	})
 }
+
+const getbyID = async(req) =>{
+	return await models.task.findOne({
+		where: {
+			id:req,
+			deleted_at: null
+		}
+	})
+}
+
 const findById = async(req) =>{
 	return await models.task.findOne({
 		where: {
-			id:req.body.task_id,
+			id:req.body.task,
 			deleted_at: null
 		}
 	})
@@ -86,9 +96,22 @@ const updateById = async(req)=>{
 }
 
 const deleteTask = async(req)=>{
-	return await models.task.destroy({
-		where:{id:req}
+	await models.todolist.destroy({
+		where:{
+			taskId:req
+		}
 	})
+
+	await models.task.destroy({
+		where:{
+			id:req
+		}
+	})
+	// return await models.task.destroy({
+	// 	where:{
+	// 		id:req,
+	// 	}
+	// })
 }
 
 
@@ -101,5 +124,6 @@ module.exports = {
 	findOne,
 	updateById,
 	deleteTask,
-	findById
+	findById,
+	getbyID
 }

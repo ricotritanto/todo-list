@@ -27,13 +27,14 @@ const getAllDolist = async(data,limit =10, offset = 0)=>{
 }
 
 const createDolist = async(req)=>{
+	console.log(req.body)
 	try {
 		await models.todolist.create({
-			taskId:req.body.task_id,
+			taskId:req.body.task,
 			name:req.body.name,
 			description:req.body.description,
 			status:req.body.status,
-			due_date:req.body.due_date,
+			due_date:req.body.dueDate,
 		})
 	} catch (error) {
 		console.log(error)
@@ -89,10 +90,10 @@ const findData = async(dolistName,req, search = {},specificWhere = []) =>{
 const updateById = async(req)=>{
 	return await models.todolist.update({
 		name:req.body.name.toLowerCase(),
-		taskId:req.body.task_id,
+		taskId:req.body.task,
 		description:req.body.description,
 		status:req.body.status,
-		due_date:req.body.due_date,
+		due_date:req.body.dueDate,
 	}
 	,{
 		where:{id:req.params.id}
@@ -101,7 +102,7 @@ const updateById = async(req)=>{
 
 const deleteDolist = async(req)=>{
 	return await models.todolist.destroy({
-		where:{id:req}
+		where:{id:req.params.id}
 	})
 }
 
