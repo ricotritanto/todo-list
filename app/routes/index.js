@@ -28,7 +28,8 @@ module.exports = app =>{
 	app.delete('/api/task/:id',taskController.deleteTask)
 
 	//api task
-    app.get('/api/dolist',dolistController.getAll)
+    app.get('/api/dolist',dolistController.getAll)	
+    app.get('/api/dolist/:id',dolistController.getbyID)
 	app.post('/api/dolist', dolistController.createDolist)
 	app.put('/api/dolist/:id', dolistController.updateDolist)
 	app.delete('/api/dolist/:id', dolistController.deleteDolist)

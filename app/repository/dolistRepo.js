@@ -42,6 +42,15 @@ const createDolist = async(req)=>{
 	}
 }
 
+const getbyID = async(req) =>{
+	return await models.todolist.findOne({
+		where: {
+			id:req,
+			deleted_at: null
+		}
+	})
+}
+
 const findOne = async(req) =>{
 	return await models.todolist.findOne({
 		where: {
@@ -114,5 +123,6 @@ module.exports={
 	updateById,
 	deleteDolist,
 	find,
-	findData
+	findData,
+	getbyID
 }

@@ -35,8 +35,6 @@ const create = async(req)=>{
 	}
 	const checkIsExistCode = await dolistRepo.findOne(req)
 	const checkTask = await taskRepo.findById(req)
-
-	console.log(checkTask)
 	if(!checkTask)
 		return{
 			status:404,
@@ -59,6 +57,17 @@ const create = async(req)=>{
 			status: 500,
 			message: 'something went wrong'
 		}
+	}
+}
+
+const getbyID = async(req)=>{
+	const dolist = await dolistRepo.getbyID(req)
+	const result = {
+		items: dolist
+	}
+	return {
+		status:200,
+		result
 	}
 }
 
@@ -128,5 +137,6 @@ module.exports = {
     getAll,
     create,
 	deleteData,
-	update
+	update,
+	getbyID
 }

@@ -7,6 +7,12 @@ const getAll = async(req, res, next) =>{
 		.catch(err => next(err))
 }
 
+const getbyID = async(req, res, next) =>{
+	return dolistServices.getbyID(req.params.id)
+		.then(result => res.status(result.status).send(result))
+		.catch(err => next(err))
+}
+
 const createDolist = async(req,res, next) =>{
 	return dolistServices.create(req)
 		.then(result => res.status(result.status).send(result))
@@ -29,5 +35,6 @@ module.exports = {
     getAll,
 	createDolist,
 	updateDolist,
-	deleteDolist
+	deleteDolist,
+	getbyID
 }
