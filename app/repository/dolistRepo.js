@@ -111,7 +111,7 @@ const updateById = async(req)=>{
 
 const deleteDolist = async(req)=>{
 	return await models.todolist.destroy({
-		where:{id:req.params.id}
+		where:{id:req}
 	})
 }
 
